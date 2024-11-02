@@ -1,7 +1,6 @@
 from openai import OpenAI
 import os
 
-os.environ['OPENAI_API_KEY'] = "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"
 MODEL_NAME = "ft:gpt-4o-2024-08-06:personal::AP0mZFnN"
 
 
