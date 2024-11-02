@@ -7,6 +7,8 @@ import base64
 MODEL_NAME = "ft:gpt-4o-2024-08-06:personal::AP0mZFnN"
 MODEL_NAME_TIKTOK = "ft:gpt-4o-mini-2024-07-18:personal::APAiF7vv"
 
+BEARER_TOKEN = os.environ["TWITTER"]
+
 openai = OpenAI(
   api_key=os.environ['OPENAI_API_KEY'],
 )
@@ -156,7 +158,7 @@ with tab1:
     tweet_url = st.text_input("Enter a tweet URL to analyze")
     
     def use_tweet_url():
-        st.session_state["tweet_input"] = get_tweet_content(tweet_url)
+        st.session_state["tweet_input"] = get_tweet_content(tweet_url, BEARER_TOKEN)
     
     st.button("Use above tweet", on_click=use_tweet_url, args=())
     tweet = st.text_area("Tweet content", key="tweet_input", height=100)

@@ -3,9 +3,8 @@ import re
 import os
 
 # Twitter API Bearer token
-BEARER_TOKEN = os.environ["TWITTER"]
 
-def get_tweet_content(tweet_url):
+def get_tweet_content(tweet_url, BEARER_TOKEN):
     if tweet_url == "":
         return ""
 
