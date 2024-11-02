@@ -1,2 +1,3 @@
 openai
 wikipedia-api
+google-cloud-videointelligence
