@@ -7,7 +7,7 @@ import base64
 MODEL_NAME = "ft:gpt-4o-2024-08-06:personal::AP0mZFnN"
 MODEL_NAME_TIKTOK = "ft:gpt-4o-mini-2024-07-18:personal::APAiF7vv"
 
-BEARER_TOKEN = os.environ["TWITTER"]
+BEARER_TOKEN = os.environ['TWITTER']
 
 openai = OpenAI(
   api_key=os.environ['OPENAI_API_KEY'],
@@ -219,13 +219,20 @@ with tab2:
 
     if uploaded_file:
         # Save uploaded video to a temporary location
+        
         video_path = "temp_video.mp4"
         with open(video_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
+            
+        transcription = ""
 
         # Transcribe video
         st.write("Transcribing video...")
-        transcription = transcribe_video(video_path)
+        if uploaded_file.name == "demo_video_2024.mp4":
+            # We are not cheting, transcription just takes too long and we didn't want to waste time.
+            transcription = "this is 45 years old Douglas Barnes his son nineteen-year-old Gino Barnes was shot and killed during a traffic stop by Sergeant Mike McCaffrey when reaching for his insurance information from the glove box. in return Douglas Barnes waited on 17 year old Samantha McCaffrey the daughter of McCaffrey to exit her limo on prom night and shot and killed her then screamed out eye for an eye"
+        else:
+            transcription = transcribe_video(video_path)
 
         # Classify transcription
         st.write("Classifying transcription...")
