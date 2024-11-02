@@ -147,7 +147,7 @@ tab1, tab2 = st.tabs(["Tweets", "TikToks"])
 
 with tab1:
     st.subheader("Identify potential scams and fake news in tweets before you trust them.")
-    st.write("Enter a tweet below, and TruthGuard will check if it’s safe, a scam, or fake news based on reliable sources.")
+    st.write("Enter a tweet below, and TrustMeBro will check if it’s safe, a scam, or fake news based on reliable sources.")
     st.markdown("---")
     st.write("### Analyze a Tweet")
     tweet = st.text_area("Enter a tweet to analyze", key="tweet_input", height=100)
@@ -200,10 +200,11 @@ with tab1:
         st.button(tweet, on_click=use_example, args=(tweet,))
         
 with tab2:
-    st.title("Video Fact Checker")
-
-    # Video upload
-    uploaded_file = st.file_uploader("Upload a video file", type=["mp4"])
+    st.subheader("Identify potential scams and fake news in TikTok videos before you trust them.")
+    st.write("Upload a TikTok video below, and TrustMeBro will check if it’s safe, a scam, or fake news based on reliable sources.")
+    st.markdown("---")
+    st.write("### Analyze a TikTok video")
+    uploaded_file = st.file_uploader("Upload a TikTok video file", type=["mp4"])
 
     if uploaded_file:
         # Save uploaded video to a temporary location
