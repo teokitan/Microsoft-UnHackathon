@@ -139,6 +139,7 @@ def verify_with_wikipedia_content(tweet, wikipedia_content):
 
 
 import streamlit as st
+from GetTweetHelper import get_tweet_content
 
 st.set_page_config(page_title="TrustMeBro", page_icon="🔍")
 st.title("🔍 TrustMeBro: Verify Information Online")
@@ -150,7 +151,15 @@ with tab1:
     st.write("Enter a tweet below, and TrustMeBro will check if it’s safe, a scam, or fake news based on reliable sources.")
     st.markdown("---")
     st.write("### Analyze a Tweet")
-    tweet = st.text_area("Enter a tweet to analyze", key="tweet_input", height=100)
+                
+    
+    tweet_url = st.text_input("Enter a tweet URL to analyze")
+    
+    def use_tweet_url():
+        st.session_state["tweet_input"] = get_tweet_content(tweet_url)
+    
+    st.button("Use above tweet", on_click=use_tweet_url, args=())
+    tweet = st.text_area("Tweet content", key="tweet_input", height=100)
 
     if st.button("Classify"):
         if tweet.strip() == "":
@@ -184,7 +193,7 @@ with tab1:
 
     st.markdown("---")
     # Example Tweets
-    st.write("### Try these example tweets:")
+    st.write("### Or try these example tweets:")
     example_tweets = [
         "guys im sure the earth is flat and nasa is hiding the truth. #StopLying",
         "Congratulations! You've won a $1,000 gift card. Click here to claim it: bit.ly/sfdsanfd",
