@@ -3,8 +3,6 @@ import os
 
 MODEL_NAME = "ft:gpt-4o-2024-08-06:personal::AP0mZFnN"
 
-
-
 openai = OpenAI(
   api_key=os.environ['OPENAI_API_KEY'],
 )
@@ -64,31 +62,67 @@ def verify_with_wikipedia_content(tweet, wikipedia_content):
 
 import streamlit as st
 
-tweet = st.text_area("Enter a tweet:")
+st.set_page_config(page_title="TruthGuard", page_icon="🔍")
+st.title("🔍 TruthGuard: Verify Tweets for Trust")
+st.subheader("Identify potential scams and fake news in tweets before you trust them.")
+st.write("Enter a tweet below, and TruthGuard will check if it’s safe, a scam, or fake news based on reliable sources.")
+
+st.markdown("---")
+st.write("### Analyze a Tweet")
+tweet = st.text_area("Enter a tweet to analyze", key="tweet_input", height=100)
+
 if st.button("Classify"):
-    # Step 1: Initial classification and keyword extraction
-    classification = classify_tweet(tweet)
-
-    if classification == "fake-news":
-        # Step 2: Search Wikipedia and fetch content
-        wikipedia_result = search_and_fetch_wikipedia_content(tweet)
-
-        if wikipedia_result["status"] == "found":
-            # Step 3: Verify content with AI
-            verification_result = verify_with_wikipedia_content(tweet, wikipedia_result["content"])
-
-            if "refute" in verification_result.lower():
-                st.error("⚠️ This tweet is confirmed as fake news based on Wikipedia.")
-                st.write("For more information, check this Wikipedia article:")
-                st.write(wikipedia_result["link"])
-            else:
-                st.success("✅ This tweet appears safe based on Wikipedia verification.")
-                st.write("You may find relevant information here:")
-                st.write(wikipedia_result["link"])
-        else:
-            st.warning("⚠️ This tweet could not be verified as fake news; no relevant Wikipedia article was found.")
-    elif classification == "scam":
-        st.error("⚠️ This tweet may be a scam.")
+    if tweet.strip() == "":
+        st.error("Please enter a tweet!")
     else:
-        st.success("✅ This tweet appears safe.")
+        # Step 1: Initial classification and keyword extraction
+        classification = classify_tweet(tweet)
 
+        if classification == "fake-news":
+            # Step 2: Search Wikipedia and fetch content
+            wikipedia_result = search_and_fetch_wikipedia_content(tweet)
+
+            if wikipedia_result["status"] == "found":
+                # Step 3: Verify content with AI
+                verification_result = verify_with_wikipedia_content(tweet, wikipedia_result["content"])
+
+                if "refute" in verification_result.lower():
+                    st.error("🚨 This tweet contains claims or elements that are likely to be fake news based on Wikipedia.")
+                    st.write("For more information, check this Wikipedia article:")
+                    st.write(wikipedia_result["link"])
+                else:
+                    st.success("✅ This tweet appears safe based on Wikipedia verification.")
+                    st.write("You may find relevant information here:")
+                    st.write(wikipedia_result["link"])
+            else:
+                st.warning("⚠️ This tweet contains some claims or elements that could not be verified; no relevant Wikipedia article was found.")
+        elif classification == "scam":
+            st.error("🚨 This tweet may be a scam.")
+        else:
+            st.success("✅ This tweet appears safe.")
+
+st.markdown("---")
+# Example Tweets
+st.write("### Try these example tweets:")
+example_tweets = [
+    "The Earth is flat and NASA is hiding the truth.",
+    "Congratulations! You've won a $1,000 gift card. Click here to claim it.",
+    "I think Pepsi is better than Coke."
+]
+
+# Function to update the main text input with an example tweet
+def use_example(exampleTweet):
+    st.session_state["tweet_input"] = exampleTweet
+
+# Buttons for each example tweet
+for tweet in example_tweets:
+    st.button(tweet, on_click=use_example, args=(tweet,))
+
+with st.sidebar:
+    st.header("About TruthGuard")
+    st.write("TruthGuard analyzes tweets for accuracy and reliability. "
+             "It flags tweets as safe, scams, or fake news by verifying content against trusted sources.")
+    st.write("**Get started by entering a tweet on the main screen.**")
+        
+st.markdown("---")
+st.write("**Developed by TEAM 7** | [Contact Us](mailto:support@example.com)")
