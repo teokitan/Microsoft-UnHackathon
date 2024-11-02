@@ -1,6 +1,8 @@
 from openai import OpenAI
 import os
 import json
+import tempfile
+import base64
 
 MODEL_NAME = "ft:gpt-4o-2024-08-06:personal::AP0mZFnN"
 MODEL_NAME_TIKTOK = "ft:gpt-4o-mini-2024-07-18:personal::APAiF7vv"
@@ -9,8 +11,15 @@ openai = OpenAI(
   api_key=os.environ['OPENAI_API_KEY'],
 )
 
-key_json = json.loads(os.getenv("GOOGLE_SERVICE_KEY"))
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_json
+encoded_key = os.environ['GOOGLE_SERVICE_KEY']
+json_key = json.loads(base64.b64decode(encoded_key).decode("utf-8"))
+
+# Write to a temporary file
+with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as temp_file:
+    temp_file.write(json.dumps(json_key).encode())
+    temp_file_path = temp_file.name
+    
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_file_path
 
 import time
 from google.cloud import videointelligence_v1 as videointelligence
