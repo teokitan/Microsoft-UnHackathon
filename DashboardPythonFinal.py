@@ -231,7 +231,7 @@ with tab2:
         if uploaded_file.name == "demo_video_2024.mp4":
             # We are not cheting, transcription just takes too long and we didn't want to waste time.
             transcription = "this is 45 years old Douglas Barnes his son nineteen-year-old Gino Barnes was shot and killed during a traffic stop by Sergeant Mike McCaffrey when reaching for his insurance information from the glove box. in return Douglas Barnes waited on 17 year old Samantha McCaffrey the daughter of McCaffrey to exit her limo on prom night and shot and killed her then screamed out eye for an eye"
-            sleep(3)
+            time.sleep(3)
         else:
             transcription = transcribe_video(video_path)
 
