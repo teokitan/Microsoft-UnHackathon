@@ -140,14 +140,14 @@ def verify_with_wikipedia_content(tweet, wikipedia_content):
 
 import streamlit as st
 
-st.set_page_config(page_title="TruthGuard", page_icon="🔍")
-st.title("🔍 TruthGuard: Verify Tweets for Trust")
-st.subheader("Identify potential scams and fake news in tweets before you trust them.")
-st.write("Enter a tweet below, and TruthGuard will check if it’s safe, a scam, or fake news based on reliable sources.")
+st.set_page_config(page_title="TrustMeBro", page_icon="🔍")
+st.title("🔍 TrustMeBro: Verify Information Online")
 
 tab1, tab2 = st.tabs(["Tweets", "TikToks"])
 
 with tab1:
+    st.subheader("Identify potential scams and fake news in tweets before you trust them.")
+    st.write("Enter a tweet below, and TruthGuard will check if it’s safe, a scam, or fake news based on reliable sources.")
     st.markdown("---")
     st.write("### Analyze a Tweet")
     tweet = st.text_area("Enter a tweet to analyze", key="tweet_input", height=100)
@@ -186,9 +186,9 @@ with tab1:
     # Example Tweets
     st.write("### Try these example tweets:")
     example_tweets = [
-        "The Earth is flat and NASA is hiding the truth.",
-        "Congratulations! You've won a $1,000 gift card. Click here to claim it.",
-        "I think Pepsi is better than Coke."
+        "guys im sure the earth is flat and nasa is hiding the truth. #StopLying",
+        "Congratulations! You've won a $1,000 gift card. Click here to claim it: bit.ly/sfdsanfd",
+        "Eyoo Pepsi do be better than Coke though"
     ]
 
     # Function to update the main text input with an example tweet
@@ -233,10 +233,10 @@ with tab2:
         os.remove(video_path)
 
 with st.sidebar:
-    st.header("About TruthGuard")
-    st.write("TruthGuard analyzes tweets for accuracy and reliability. "
-             "It flags tweets as safe, scams, or fake news by verifying content against trusted sources.")
-    st.write("**Get started by entering a tweet on the main screen.**")
+    st.header("About TrustMeBro")
+    st.write("TrustMeBro analyzes tweets and TikTok videos for accuracy and reliability. "
+             "It flags tweets and TikTok videos as safe, scams, or fake news by verifying content against trusted sources.")
+    st.write("**Get started by selecting the source of your information and uploading a tweet or TikTok video.**")
         
 st.markdown("---")
-st.write("**Developed by TEAM 7** | [Contact Us](mailto:support@example.com)")
+st.write("**Developed by TEAM 7** | [Contact Us](mailto:teo.kitanovski@vanderbilt.com)")
