@@ -104,7 +104,7 @@ import wikipediaapi
 
 def search_and_fetch_wikipedia_content(tweet_content):
     response = openai.chat.completions.create(
-        model=MODEL_NAME,
+        model=MODEL_NAME_TWEET,
         messages=[
             {"role": "system", "content": "You are a verifier that, given a tweet that may contain fake news, identifies what parts may be problematic and finds the Wikipedia article that is most likely related to the questionable claim. Go through the Wikipedia website, confirm it exists, and give me ONLY the real Wikipedia title of the article."},
             {"role": "user", "content": "Here is a tweet to verify: " + tweet + ". Give me a Wikipedia article title where I can confirm the questionable claim in the tweet: " + tweet_content}
