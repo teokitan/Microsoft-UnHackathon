@@ -1,0 +1,8 @@
+# Ignore pycache folder
+__pycache__/
+
+# Ignore Jupyter Notebook checkpoints folder
+.ipynb_checkpoints/
+
+# Ignore old files
+old/

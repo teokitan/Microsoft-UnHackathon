@@ -4,7 +4,7 @@ import json
 import tempfile
 import base64
 
-MODEL_NAME = "ft:gpt-4o-2024-08-06:personal::AP0mZFnN"
+MODEL_NAME_TWEET = "ft:gpt-4o-2024-08-06:personal::AP0mZFnN"
 MODEL_NAME_TIKTOK = "ft:gpt-4o-mini-2024-07-18:personal::APAiF7vv"
 
 BEARER_TOKEN = os.environ['TWITTER']
@@ -89,7 +89,7 @@ def summarize_claims(transcript,classification):
 
 def classify_tweet(tweet_content):
     response = openai.chat.completions.create(
-        model=MODEL_NAME,
+        model=MODEL_NAME_TWEET,
         messages=[
             {"role": "system", "content": "You are a helpful assistant that classifies tweets as either safe, scam, or fake-news."},
             {"role": "user", "content": "This tweet says: '" + tweet_content + "'\nClassify it as:"}
@@ -128,7 +128,7 @@ def verify_with_wikipedia_content(tweet, wikipedia_content):
         return "not_verified"
 
     response = openai.chat.completions.create(
-        model=MODEL_NAME,
+        model=MODEL_NAME_TWEET,
         messages=[
             {"role": "system", "content": "You are a verifier that checks if the content of a tweet is accurate based on reliable information from Wikipedia. Respond simply with confirm (if the article confirms it), or refute (if the article refutes it or is not clear). Say confirm only if you are absolutely sure."},
             {"role": "user", "content": "Here is a tweet to verify: " + str(tweet) + ". Does the following Wikipedia content confirm or refute it? Respond with 'confirm' or 'refute': " + str(wikipedia_content)}
