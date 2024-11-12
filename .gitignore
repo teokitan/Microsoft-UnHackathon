@@ -1,5 +1,5 @@
 # Ignore pycache folder
-/pycache/* 
+__pycache__/
 
 # Ignore Jupyter Notebook checkpoints folder
 .ipynb_checkpoints/*
